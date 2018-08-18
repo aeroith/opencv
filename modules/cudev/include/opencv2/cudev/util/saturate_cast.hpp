@@ -47,6 +47,7 @@
 #define OPENCV_CUDEV_UTIL_SATURATE_CAST_HPP
 
 #include "../common.hpp"
+#include <cuda_fp16.h>
 
 namespace cv { namespace cudev {
 
@@ -274,12 +275,13 @@ template <typename T, typename D> __device__ __forceinline__ D cast_fp16(T v);
 
 template <> __device__ __forceinline__ float cast_fp16<short, float>(short v)
 {
-    return __half2float(v);
+    return float(*(__half*)&v);
 }
 
 template <> __device__ __forceinline__ short cast_fp16<float, short>(float v)
 {
-    return (short)__float2half_rn(v);
+  __half h(v);
+  return *(short*)&v;
 }
 //! @}
 

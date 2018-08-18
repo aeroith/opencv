@@ -129,6 +129,7 @@ if(CUDA_FOUND)
   set(OPENCV_CUDA_ARCH_BIN "")
   set(OPENCV_CUDA_ARCH_PTX "")
   set(OPENCV_CUDA_ARCH_FEATURES "")
+  set(NVCC_FLAGS_EXTRA ${NVCC_FLAGS_EXTRA} -D_FORCE_INLINES)
 
   # Tell NVCC to add binaries for the specified GPUs
   string(REGEX MATCHALL "[0-9()]+" ARCH_LIST "${ARCH_BIN_NO_POINTS}")
